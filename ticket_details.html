@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Security Ticket System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Background Image -->
+    <div class="background">
+        <div class="container">
+            <h1>Security Ticket System</h1>
+            <div class="button-container">
+                <button onclick="showForm('raise')">Raise a Ticket</button>
+                <button onclick="showForm('update')">Update Ticket</button>
+            </div>
+
+            <!-- Raise Ticket Form -->
+            <div id="raiseTicketForm" class="form-container" style="display: none;">
+                <h3>Raise a Ticket</h3>
+                <form id="ticketForm">
+                    <label for="description">Issue Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+                <p id="responseMessage" class="success-message" style="display: none;"></p>
+            </div>
+
+            <!-- Update Ticket Form -->
+            <div id="updateTicketForm" class="form-container" style="display: none;">
+                <h3>Update Ticket</h3>
+                <form id="updateForm">
+                    <label for="ticket_id">Ticket ID:</label>
+                    <input type="number" id="ticket_id" name="ticket_id" required>
+                    <button type="button" onclick="checkTicketStatus()">Check Status</button>
+                </form>
+                <p id="ticketStatus" class="info-message" style="display: none;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showForm(type) {
+            document.getElementById('raiseTicketForm').style.display = (type === 'raise') ? 'block' : 'none';
+            document.getElementById('updateTicketForm').style.display = (type === 'update') ? 'block' : 'none';
+        }
+
+        document.getElementById('ticketForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    let description = document.getElementById('description').value;
+
+    let response = await fetch('http://127.0.0.1:5001/create_ticket', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({description})
+    });
+
+    let result = await response.json();
+    let message = "✅ Ticket Raised! ID: " + result.ticket_id;
+    
+    alert(message);  // ✅ Keeps Ticket ID visible
+    document.getElementById('responseMessage').innerText = message;
+    document.getElementById('responseMessage').style.display = "block";
+    document.getElementById('ticketForm').reset();
+});
+
+
+        async function checkTicketStatus() {
+            let ticket_id = document.getElementById('ticket_id').value;
+
+            let response = await fetch(`http://127.0.0.1:5001/ticket_status/${ticket_id}`);
+            let result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('ticketStatus').innerText = "📌 Ticket " + ticket_id + " Status: " + result.status;
+                document.getElementById('ticketStatus').style.display = "block";
+            } else {
+                document.getElementById('ticketStatus').innerText = "❌ Ticket Not Found";
+                document.getElementById('ticketStatus').style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+

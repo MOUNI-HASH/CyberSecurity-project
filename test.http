@@ -1,0 +1,8 @@
+GET http://127.0.0.1:5000/
+### Create a Ticket
+POST http://127.0.0.1:5000/create_ticket
+Content-Type: application/json
+
+{
+   "description": "Unauthorized access detected"
+}

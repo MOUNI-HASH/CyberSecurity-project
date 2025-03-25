@@ -1,0 +1,83 @@
+/* Reset & Global Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background:url('background1.png') no-repeat center center fixed;
+}
+
+/* Background Image - Covers Full Screen */
+.background {
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Container */
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    width: 40%;
+    min-width: 400px;
+}
+
+/* Title */
+h1 {
+    color: #0d47a1;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.button-container {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #1976d2;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0d47a1;
+}
+
+/* Form Containers */
+.form-container {
+    display: none;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Fields */
+textarea, input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Ticket ID and Messages */
+.success-message, .info-message {
+    color: green;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
